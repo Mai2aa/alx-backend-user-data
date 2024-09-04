@@ -96,7 +96,7 @@ class BasicAuth(Auth):
             return None, None
         # Attempt to split email and password by first ':'
         try:
-            email, password = decoded_header.split(':', 1)
+            email, password = decoded_header.rsplit(':', 1)
         except ValueError:
             return None, None
         # Return the user email and the user password
