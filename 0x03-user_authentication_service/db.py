@@ -31,13 +31,14 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        '''add a user to database'''
+        """ add a user to database """
         session = self._session
+        new_user = None
         try:
             new_user = User(email=email, hashed_password=hashed_password)
             session.add(new_user)
             session.commit()
-        except Exception:
+        except Exception as e:
             session.rollback()
-            new_user = None
+            print('"Error adding user: {e}')
         return new_user
