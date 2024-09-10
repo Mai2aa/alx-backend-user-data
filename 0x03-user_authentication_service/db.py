@@ -40,5 +40,5 @@ class DB:
             session.commit()
         except Exception as e:
             session.rollback()
-            print('"Error adding user: {e}')
+            print(f"Error adding user: {e}")
         return new_user
