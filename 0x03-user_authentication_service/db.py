@@ -37,8 +37,7 @@ class DB:
             new_user = User(email=email, hashed_password=hashed_password)
             session.add(new_user)
             session.commit()
-        except Exception as e:
-            print(f"Error adding user to database: {e}")
+        except Exception:
             session.rollback()
-            raise
+            new_user = None
         return new_user
