@@ -84,11 +84,9 @@ class Auth:
             user = None
         if not user:
             raise ValueError("User not found")
-        hashed_password = _hash_password(password)
-        self._db.update_user(user.id, password=hashed_password,
+        new_hashed_password = _hash_password(password)
+        self._db.update_user(user.id, password=new_hashed_password,
                              reset_token=None)
-        self._db._session.commit()
-        return None
 
 
 def _hash_password(password: str) -> bytes:
