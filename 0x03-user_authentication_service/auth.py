@@ -85,8 +85,7 @@ class Auth:
         if not user:
             raise ValueError("User not found")
         hashed_password = _hash_password(password)
-        user.hashed_password = hashed_password
-        user.reset_token = None
+        self._db.update_user(user.id, email, password=hashed_password, reset_token=None )
         self._db._session.commit()
         return None
         
