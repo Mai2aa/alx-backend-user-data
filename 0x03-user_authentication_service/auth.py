@@ -75,6 +75,22 @@ class Auth:
         self._db._session.commit()
         return token_id
 
+    def update_password(self, reset_token: str, password: str) -> None:
+        '''a method that updates the password'''
+        user = None
+        try:
+            user  = self._db.find_user_by(reset_token)
+        except NoResultFound:
+            user = None
+        if not user:
+            raise ValueError("User not found")
+        hashed_password = _hash_password(password)
+        user.hashed_password = hashed_password
+        user.reset_token = None
+        self._db._session.commit()
+        return None
+        
+
 
 def _hash_password(password: str) -> bytes:
     '''Hash password using bcrypt'''
