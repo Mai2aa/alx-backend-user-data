@@ -33,6 +33,19 @@ class Auth:
             return False
         return False
 
+    def create_session(self, email: str) -> str:
+        '''returns the session ID as a string'''
+        user = None
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+        if user is None:
+            return None
+        session_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
+
 
 def _hash_password(password: str) -> bytes:
     '''Hash password using bcrypt'''
