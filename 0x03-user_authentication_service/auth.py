@@ -65,7 +65,7 @@ class Auth:
         '''generate reset password token'''
         user = self._db.find_user_by(email=email)
         if not user:
-            raise ValueError("USer not found")
+            raise ValueError("User not found")
         token_id = _generate_uuid()
         user.reset_token = token_id
         self._db._session.commit()
