@@ -61,6 +61,16 @@ class Auth:
             return None
         self._db.update_user(user_id, session_id=None)
 
+    def get_reset_password_token(self, email: str) -> str:
+        '''generate reset password token'''
+        user = self._db.find_user_by(email=email)
+        if not user:
+            raise ValueError("USer not found")
+        token_id = _generate_uuid()
+        user.reset_token = token_id
+        self._db._session.commit()
+        return token_id
+
 
 def _hash_password(password: str) -> bytes:
     '''Hash password using bcrypt'''
