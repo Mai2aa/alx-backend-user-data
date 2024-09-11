@@ -79,7 +79,7 @@ class Auth:
         '''a method that updates the password'''
         user = None
         try:
-            user = self._db.find_user_by(reset_token)
+            user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
             user = None
         if not user:
