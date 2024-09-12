@@ -79,7 +79,7 @@ class Auth:
         '''a method that updates the password'''
         try:
             user = self._db.find_user_by(reset_token=reset_token)
-        except ValueError:
+        except NoResultFound:
             user = None
         if user is None:
             raise ValueError("User not found")
@@ -89,7 +89,7 @@ class Auth:
             hashed_password=new_password_hash,
             reset_token=None
         )
-
+        self._db._session.commit()
 
 def _hash_password(password: str) -> bytes:
     '''Hash password using bcrypt'''
