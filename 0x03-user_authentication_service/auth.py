@@ -88,7 +88,7 @@ class Auth:
         new_password_hash = _hash_password(password)
         self._db.update_user(
             user.id,
-            hashed_password=new_password_hash,
+            hashed_password=new_password_hash.decode("utf-8"),
             reset_token=None,
         )
         session.commit()
