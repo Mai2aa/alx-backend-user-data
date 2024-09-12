@@ -84,6 +84,7 @@ class Auth:
                     user.id, hashed_password=hashed_password, reset_token=None)
         except NoResultFound:
             raise ValueError
+        self._db._session.commit()
 
 
 def _hash_password(password: str) -> bytes:
