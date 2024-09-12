@@ -90,6 +90,7 @@ class Auth:
             reset_token=None
         )
         self._db._session.commit()
+        return None
 
 
 def _hash_password(password: str) -> bytes:
